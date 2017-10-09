@@ -1,0 +1,1 @@
+export BetterTable from './BetterTable'

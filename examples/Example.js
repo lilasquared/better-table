@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BetterTable from '../src/BetterTable'
+import { BetterTable } from '../src'
 
 class Example extends React.Component {
   render() {
@@ -26,10 +26,6 @@ class Example extends React.Component {
               ))}
             </tbody>
           </table>
-        </BetterTable>
-
-        <BetterTable>
-          <div></div>
         </BetterTable>
 
         <h1>Other Content</h1>
