@@ -13,7 +13,7 @@ const FixedHeaderRow = props => {
   const children = React.Children.map(props.children, (child, index) => {
     if (child.type === 'th') {
       return (
-        <FixedHeaderCell {...child.props} width={props.widths[index]}>
+        <FixedHeaderCell {...child.props} width={props.widths[index] }>
           {child.props.children}
         </FixedHeaderCell>
       );

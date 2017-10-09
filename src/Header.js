@@ -39,7 +39,9 @@ class Header extends React.PureComponent {
   }
   
   render() {
-    const { isFixed, table, ...props} = this.props
+    const { ...props} = this.props
+    delete props.isFixed
+    delete props.table
     const fixedChildren = [];
     const children = [];
     React.Children.forEach(this.props.children, (row, index) => {
@@ -52,12 +54,10 @@ class Header extends React.PureComponent {
 
         const rowProps = {
           ...row.props, 
-          key: `r${index}`,
+          key: index,
           setColumnWidth: (width, index) => {
-            const newValue = {};
-            newValue[index] = width;
             this.setState(state => ({
-              widths: Object.assign([], state.widths, newValue)
+              widths: Object.assign([], state.widths, {[index] : width})
             }));
           }
         }
@@ -77,7 +77,7 @@ class Header extends React.PureComponent {
 Header.propTypes = {
   children: PropTypes.any,
   isFixed: PropTypes.bool,
-  table: PropTypes.any
+  table: PropTypes.object
 }
 
 Header.contextTypes = {

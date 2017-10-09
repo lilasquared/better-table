@@ -12,12 +12,15 @@ class HeaderCell extends React.Component {
   }
 
   render() {
+    const { width, ...props } = this.props
+    delete props.setCellWidth
     const style = {
-      width: this.props.width,
+      width,
       backgroundColor: "inherit"
-    };
+    }
+
     return (
-      <th ref={el => (this.cell = el)} style={style}>
+      <th ref={el => (this.cell = el)} style={style} {...props}>
         {this.props.children}
       </th>
     );

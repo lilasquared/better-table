@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BetterTable /> throws when it does not have a child 1`] = `"React.Children.only expected to receive a single React element child."`;
+
+exports[`<BetterTable /> throws when it has more than one child 1`] = `"React.Children.only expected to receive a single React element child."`;

@@ -16,8 +16,8 @@ class Table extends React.Component {
   }
 
   render() {
-    const { hasFixedHeader, ...props } = this.props
-    const children = React.Children.map(this.props.children, child => {
+    const { children, hasFixedHeader,  ...props } = this.props
+    const newChildren = React.Children.map(children, child => {
       if (child.type === 'thead') {
         return <Header 
           {...child.props} 
@@ -29,7 +29,7 @@ class Table extends React.Component {
     })
     return (
       <table {...props} ref={el => this.table = el}>
-        {children}
+        {newChildren}
       </table>
     )
   }

@@ -1,27 +1,27 @@
 import React from 'react'
-import warning from 'warning'
 import PropTypes from 'prop-types'
 
 import Table from './Table'
 
-class BetterTable extends React.Component {
-  render() {
-    const { hasFixedHeader = false } = this.props
-    const children = React.Children.map(this.props.children, (child) => {
-      warning(child.type === 'table', 'TableWrapper child must be a table')
-      return <Table 
-        { ...child.props }
-        hasFixedHeader={hasFixedHeader}
-      />
-    })
-
-    return children[0]
-  }
-}
+const BetterTable = props => (
+  <Table 
+    { ...React.Children.only(props.children).props }
+    hasFixedHeader={props.hasFixedHeader}
+  />
+)
 
 BetterTable.propTypes = {
-  children: PropTypes.node,
+  children: (props, propName, componentName) => {
+    const prop = props[propName]
+    if (React.Children.count(prop) !== 1 || prop.type !== 'table') {
+      return new Error(`\`${componentName}\` should have a single child of type \`table\``)
+    }
+  },
   hasFixedHeader: PropTypes.bool
+}
+
+BetterTable.defaultProps = {
+  hasFixedHeader: false
 }
 
 export default BetterTable
