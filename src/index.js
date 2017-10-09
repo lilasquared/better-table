@@ -1,1 +1,3 @@
-export BetterTable from './BetterTable'
+import BetterTable from './BetterTable'
+
+export { BetterTable }

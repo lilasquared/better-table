@@ -39,9 +39,7 @@ class Header extends React.PureComponent {
   }
   
   render() {
-    const { ...props} = this.props
-    delete props.isFixed
-    delete props.table
+    const { isFixed, table, ...props} = this.props
     const fixedChildren = [];
     const children = [];
     React.Children.forEach(this.props.children, (row, index) => {

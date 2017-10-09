@@ -12,8 +12,7 @@ class HeaderCell extends React.Component {
   }
 
   render() {
-    const { width, ...props } = this.props
-    delete props.setCellWidth
+    const { width, setCellWidth, ...props } = this.props
     const style = {
       width,
       backgroundColor: "inherit"
