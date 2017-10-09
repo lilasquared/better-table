@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import HeaderRow from './HeaderRow'
 import FixedHeaderRow from './FixedHeaderRow'
 
-class Header extends React.Component {
+class Header extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -24,33 +24,34 @@ class Header extends React.Component {
   }
   
   render() {
+    const { isFixed, ...props} = this.props
     const fixedChildren = [];
     const children = [];
     React.Children.forEach(this.props.children, (row, index) => {
-      if (row.type === HeaderRow) {
+      if (row.type === 'tr') {
         fixedChildren.push(
           <FixedHeaderRow widths={this.state.widths} key={`f${index}`}>
             {row.props.children}
           </FixedHeaderRow>
         );
 
-        children.push(
-          React.cloneElement(row, {
-            key: `r${index}`,
-            setColumnWidth: (width, index) => {
-              const newValue = {};
-              newValue[index] = width;
-              this.setState(state => ({
-                widths: Object.assign([], state.widths, newValue)
-              }));
-            }
-          })
-        );
+        const rowProps = {
+          ...row.props, 
+          key: `r${index}`,
+          setColumnWidth: (width, index) => {
+            const newValue = {};
+            newValue[index] = width;
+            this.setState(state => ({
+              widths: Object.assign([], state.widths, newValue)
+            }));
+          }
+        }
+        children.push(<HeaderRow {...rowProps} />);
       }
     });
 
     return (
-      <thead ref={el => this.thead = el}>
+      <thead ref={el => this.thead = el} {...props}>
         {this.state.shouldRenderFixedHeader ? fixedChildren : []}
         {children}
       </thead>
@@ -59,8 +60,12 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  isFixed: PropTypes.bool,
-  children: PropTypes.any
+  children: PropTypes.any,
+  isFixed: PropTypes.bool
+}
+
+Header.contextTypes = {
+  hasFixedHeader: PropTypes.bool
 }
 
 export default Header

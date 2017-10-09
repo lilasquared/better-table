@@ -1,51 +1,36 @@
 import React from 'react';
 
-import Header from '../src/Header';
-import HeaderRow from '../src/HeaderRow'
-import HeaderCell from '../src/HeaderCell'
-import Body from '../src/Body'
-import BodyRow from '../src/BodyRow'
-
-import TableWrapper from '../src/TableWrapper'
+import BetterTable from '../src/BetterTable'
 
 class Example extends React.Component {
-    render() {
-      const arr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-        return (
-          <div className="container">
-          <h1>Sup</h1>
-          <h1>Sup</h1>
-          <h1>Sup</h1>
-  
-          <table className="table">
-            <Header isFixed>
-              <HeaderRow>
-                <HeaderCell>Head 1</HeaderCell>
-                <HeaderCell>Head 2</HeaderCell>
-                <HeaderCell>Head 3</HeaderCell>
-              </HeaderRow>
-            </Header>
-            <Body>
-              {arr.map((value, index) => (
-                <BodyRow key={index}>
-                  <td>Cell</td>
-                  <td>Cell</td>
-                  <td>Cell</td>
-                </BodyRow>
-              ))}
-            </Body>
-          </table>
-
-          <TableWrapper>
-            <table>
+  render() {
+    const arr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    return (
+      <div className="container">
+        <h1>Wrapper</h1>
+        <BetterTable hasFixedHeader>
+          <table className="table" data-id="test">
+            <thead>
               <tr>
-                <td>Test</td>
+                <th>Head 1</th>
+                <th>Head 2</th>
+                <th>Head 3</th>
               </tr>
-            </table>
-          </TableWrapper>
-        </div>
-      )
-    }
+            </thead>
+            <tbody>
+              {arr.map((value, index) => (
+                <tr key={index}>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </BetterTable>
+      </div>
+    )
   }
+}
 
 export default Example

@@ -2,74 +2,70 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default () => ({
-    entry: [
-        'react-hot-loader/patch',
+  entry: [
+    'react-hot-loader/patch',
         // activate HMR for React
 
-        'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8080',
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
 
-        'webpack/hot/only-dev-server',
+    'webpack/hot/only-dev-server',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
 
-        './examples/index.js'
+    './examples/index.js'
         // the entry point of our app
-    ],
+  ],
 
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
         // necessary for HMR to know where to load the hot update chunks
-    },
+  },
 
-    devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
 
-    devServer: {
-        hot: false,
+  devServer: {
+    hot: false,
         // enable HMR on the server
 
-        contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, 'dist'),
         // match the output path
 
-        publicPath: '/',
+    publicPath: '/',
         // match the output `publicPath`
 
-        host: '0.0.0.0'
-    },
+    host: '0.0.0.0'
+  },
 
-    module: {
-        rules: [
-            {
-                test: /.jsx?$/,
-                exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            babelrc: false,
-                            presets: [
-                                ['es2015', { modules: false }],
-                                'react',
-                            ],
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(css)$/,
-                loader: 'style-loader!css-loader',
-            },
+  module: {
+    rules: [
+      {
+        test: /.jsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: true,
+            }
+          }
         ]
-    },
+      },
+      {
+        test: /\.(css)$/,
+        loader: 'style-loader!css-loader',
+      },
+    ]
+  },
 
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
 
-        new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
-    ]
+  ]
 });

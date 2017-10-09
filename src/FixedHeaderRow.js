@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import HeaderCell from './HeaderCell'
 import FixedHeaderCell from './FixedHeaderCell'
 
 const FixedHeaderRow = props => {
@@ -12,7 +11,7 @@ const FixedHeaderRow = props => {
   };
 
   const children = React.Children.map(props.children, (child, index) => {
-    if (child.type === HeaderCell) {
+    if (child.type === 'th') {
       return (
         <FixedHeaderCell {...child.props} width={props.widths[index]}>
           {child.props.children}
