@@ -4,7 +4,7 @@ import BetterTable from '../src/BetterTable'
 
 class Example extends React.Component {
   render() {
-    const arr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    const arr = [1,1,1,1]
     return (
       <div className="container">
         <h1>Wrapper</h1>
@@ -28,6 +28,31 @@ class Example extends React.Component {
             </tbody>
           </table>
         </BetterTable>
+
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
+        <h1>Other Content</h1>
       </div>
     )
   }

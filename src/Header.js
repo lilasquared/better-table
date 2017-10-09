@@ -9,13 +9,28 @@ class Header extends React.PureComponent {
 
     this.state = {
       shouldRenderFixedHeader: false,
-      widths: []
+      widths: [],
+      fixedHeaderOffsetTop: 0
     }
   }
 
   updateShouldRenderFixedHeader() {
-    const shouldRender = this.props.isFixed && this.thead.getBoundingClientRect().top < 0;
+    const shouldRender = 
+      this.props.isFixed && 
+      this.props.table.getBoundingClientRect && 
+      this.props.table.getBoundingClientRect().top < 0 &&
+      this.props.table.getBoundingClientRect().bottom > 0
+
     this.setState({ shouldRenderFixedHeader: shouldRender });
+    if (shouldRender) {
+      const offset = -(2 * this.thead.clientHeight - this.props.table.getBoundingClientRect().bottom)
+
+      const offsetTop = offset > 0
+        ? 0
+        : offset
+
+      this.setState({ fixedHeaderOffsetTop: offsetTop })
+    }
   }
 
   componentDidMount() {
@@ -24,13 +39,13 @@ class Header extends React.PureComponent {
   }
   
   render() {
-    const { isFixed, ...props} = this.props
+    const { isFixed, table, ...props} = this.props
     const fixedChildren = [];
     const children = [];
     React.Children.forEach(this.props.children, (row, index) => {
       if (row.type === 'tr') {
         fixedChildren.push(
-          <FixedHeaderRow widths={this.state.widths} key={`f${index}`}>
+          <FixedHeaderRow widths={this.state.widths} offsetTop={this.state.fixedHeaderOffsetTop} key={`f${index}`}>
             {row.props.children}
           </FixedHeaderRow>
         );
@@ -51,7 +66,7 @@ class Header extends React.PureComponent {
     });
 
     return (
-      <thead ref={el => this.thead = el} {...props}>
+      <thead {...props} ref={el => this.thead = el}>
         {this.state.shouldRenderFixedHeader ? fixedChildren : []}
         {children}
       </thead>
@@ -61,7 +76,8 @@ class Header extends React.PureComponent {
 
 Header.propTypes = {
   children: PropTypes.any,
-  isFixed: PropTypes.bool
+  isFixed: PropTypes.bool,
+  table: PropTypes.any
 }
 
 Header.contextTypes = {

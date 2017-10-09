@@ -5,7 +5,7 @@ import FixedHeaderCell from './FixedHeaderCell'
 const FixedHeaderRow = props => {
   const style = {
     position: "fixed",
-    top: 0,
+    top: props.offsetTop,
     visibility: "visible",
     background: "white"
   };
@@ -25,8 +25,9 @@ const FixedHeaderRow = props => {
 }
 
 FixedHeaderRow.propTypes = {
+  children: PropTypes.any,
   widths: PropTypes.arrayOf(PropTypes.number),
-  children: PropTypes.any
+  offsetTop: PropTypes.number
 }
 
 export default FixedHeaderRow
